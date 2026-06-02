@@ -1,0 +1,172 @@
+:root {
+  /* คัลเลอร์พาเลทสีเหลืองอุ่น สบายตา (Warm Honey & Cream Theme) */
+  --primary: #c27d0e; /* สีเหลืองทองเข้ม สบายตาและคมชัดอ่านง่าย */
+  --primary-hover: #a16207;
+  --primary-light: #fef08a; /* เหลืองพาสเทลอ่อน */
+  --primary-bg: #fffbeb; /* ครีมเหลืองอุ่นอ่อนโยน */
+  --accent: #eab308;
+  --accent-light: rgba(234, 179, 8, 0.1);
+  --bg-main: #faf8f2; /* พื้นหลังสีครีมกระดาษถนอมสายตา */
+  --bg-card: #ffffff;
+  --text-main: #2d2a24; /* ตัวอักษรสีน้ำตาลเข้มเกือบดำเพื่อไม่ให้ล้าสายตา */
+  --text-muted: #5c5549; /* สีเทาอมน้ำตาลสำหรับคำอธิบาย */
+  --border: #ebdcb9; /* เส้นขอบโทนเหลืองครีมอ่อน */
+  --border-focus: #c27d0e;
+  --shadow-sm: 0 4px 6px -1px rgba(194, 125, 14, 0.05), 0 2px 4px -1px rgba(194, 125, 14, 0.03);
+  --shadow-md: 0 10px 15px -3px rgba(194, 125, 14, 0.07), 0 4px 6px -2px rgba(194, 125, 14, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(194, 125, 14, 0.1), 0 10px 10px -5px rgba(194, 125, 14, 0.04);
+  
+  /* Fonts */
+  --font-sans: 'Sarabun', 'Inter', system-ui, sans-serif;
+  --font-heading: 'Kanit', 'Inter', system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* คอนเทนเนอร์หลักครอบคลุมทั้งหน้าจอ */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* หัวข้อใหญ่ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: #1e1b15;
+  margin-top: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ลิงก์ */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* การตกแต่งขอบมนและเงา (Premium Cards) */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+/* ปุ่มกดสไตล์สวยงาม */
+.btn-primary {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(194, 125, 14, 0.2);
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(194, 125, 14, 0.3);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+.btn-primary:disabled {
+  background-color: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  background-color: var(--primary-bg);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  padding: 10px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-hover);
+}
+
+/* Micro-animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanLaser {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+@keyframes pulseBorder {
+  0% { border-color: var(--border); }
+  50% { border-color: var(--primary); }
+  100% { border-color: var(--border); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar ตกแต่งให้สวยงาม */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}

@@ -1,0 +1,1404 @@
+/* โครงสร้างหน้าเว็บหลัก */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+/* Navbar หัวเว็บ */
+.app-header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.header-logo-icon {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  gap: 20px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+}
+
+/* คอนเทนต์หลักแบ่ง 2 ฝั่ง */
+.main-content {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
+
+/* ฝั่งซ้าย: แดชบอร์ดข้อมูลผู้ใช้และฟิลเตอร์ */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 90px;
+  height: fit-content;
+}
+
+/* โซนอัปโหลดใบเกรด */
+.upload-zone {
+  border: 2px dashed var(--border);
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-zone:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-bg);
+}
+
+.upload-zone.active {
+  border-color: var(--primary);
+  background-color: var(--primary-bg);
+  animation: pulseBorder 2s infinite;
+}
+
+.upload-icon-container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--primary-bg);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  transition: transform 0.2s ease;
+}
+
+.upload-zone:hover .upload-icon-container {
+  transform: scale(1.1);
+}
+
+/* โซนอนิเมชันการสแกน */
+.scan-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-color: #f1ebd9;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+}
+
+.scan-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.scan-laser {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  box-shadow: 0 0 12px var(--primary);
+  animation: scanLaser 2.5s infinite linear;
+}
+
+/* ข้อมูลผู้เรียนจากการวิเคราะห์ของ AI */
+.student-profile {
+  background-color: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.profile-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.profile-stat:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--primary-hover);
+  font-size: 15px;
+}
+
+/* ฝั่งขวา: รายการมหาวิทยาลัยที่แนะนำ */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.results-title {
+  margin: 0;
+  font-size: 22px;
+}
+
+.search-filter-bar {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  background: var(--bg-card);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+.search-input {
+  flex-grow: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  outline: none;
+  background-color: var(--bg-main);
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+}
+
+.filter-select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  border-color: var(--primary);
+}
+
+/* การ์ดหลักสูตร (Program Cards Grid) */
+.programs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.program-card {
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.program-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: var(--badge-color, var(--primary));
+}
+
+.program-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.uni-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.uni-logo-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+}
+
+.uni-name-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.program-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1b15;
+  margin: 0;
+}
+
+.faculty-name {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+
+.meta-badge.gpax-green {
+  background-color: #f0fdf4;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.meta-badge.gpax-yellow {
+  background-color: #fefbeb;
+  color: #854d0e;
+  border-color: #fef08a;
+}
+
+.meta-badge.gpax-red {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-color: #fee2e2;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag-pill {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background-color: var(--primary-bg);
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+
+.recommend-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.recommend-badge.high {
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.recommend-badge.match {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+/* Modal รายละเอียด (Modal Overlay & Container) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(26, 24, 20, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-hover);
+}
+
+.modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--primary-bg);
+  border-radius: 20px 20px 0 0;
+}
+
+.modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-section-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-hover);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .modal-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-item {
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.info-item-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.info-item-value {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.career-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .career-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.career-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: var(--bg-main);
+  border-radius: 0 0 20px 20px;
+}
+
+/* แถบแจ้งเตือนจำลองรูปตัวอย่างเกรด */
+.mock-grade-selector {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.mock-grade-btn {
+  width: 100%;
+  text-align: left;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mock-grade-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.mock-grade-btn:last-child {
+  margin-bottom: 0;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab:hover {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.nav-tab.active {
+  background-color: var(--primary-bg);
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+/* AI Chat UI */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 180px);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--primary-bg);
+  border-radius: 16px 16px 0 0;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-message {
+  display: flex;
+  gap: 12px;
+  max-width: 85%;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-avatar.ai {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.chat-avatar.user {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.chat-bubble {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chat-message.ai .chat-bubble {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  border-top-left-radius: 4px;
+  color: var(--text-main);
+}
+
+.chat-message.user .chat-bubble {
+  background-color: var(--primary);
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.chat-input-area {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  background-color: var(--bg-card);
+  border-radius: 0 0 16px 16px;
+}
+
+.chat-input {
+  flex-grow: 1;
+  padding: 12px 20px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  background-color: var(--bg-main);
+  transition: border-color 0.2s;
+}
+
+.chat-input:focus {
+  border-color: var(--primary);
+}
+
+.chat-send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chat-send-btn:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+/* Language Switcher */
+.lang-switcher-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-switcher-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  padding: 6px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.lang-option:hover {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.lang-option.active {
+  background-color: var(--primary-light);
+  color: var(--primary-hover);
+  font-weight: 500;
+}
+
+/* ============================================
+   LOGIN / REGISTER PAGE
+   ============================================ */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  font-family: var(--font-sans);
+}
+
+/* ── ฝั่งซ้าย: Branding Panel ── */
+.login-left-panel {
+  width: 42%;
+  background: linear-gradient(155deg, #1e1b15 0%, #2d2416 60%, #1a1208 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-left-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Logo Area */
+.login-logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.login-logo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(217, 119, 6, 0.15);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(217, 119, 6, 0.2);
+}
+
+.login-logo-text {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.login-logo-white {
+  color: #ffffff;
+}
+
+.login-logo-amber {
+  color: #d97706;
+}
+
+/* Tagline */
+.login-tagline {
+  margin-bottom: 44px;
+}
+
+.login-tagline-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0 0 14px;
+  letter-spacing: -0.03em;
+}
+
+.login-tagline-accent {
+  background: linear-gradient(90deg, #d97706, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-tagline-desc {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Feature List */
+.login-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.login-feature-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.login-feature-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2px;
+}
+
+.login-feature-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.5;
+}
+
+/* Decorative Circles */
+.login-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.12), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.login-deco-circle-1 {
+  width: 380px;
+  height: 380px;
+  bottom: -120px;
+  right: -100px;
+}
+
+.login-deco-circle-2 {
+  width: 220px;
+  height: 220px;
+  top: -60px;
+  left: -60px;
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.08), transparent);
+}
+
+.login-deco-circle-3 {
+  width: 140px;
+  height: 140px;
+  top: 40%;
+  right: 20px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.06), transparent);
+}
+
+/* ── ฝั่งขวา: Form Panel ── */
+.login-right-panel {
+  flex: 1;
+  background: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  overflow-y: auto;
+}
+
+.login-form-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab Switcher */
+.login-tabs {
+  display: flex;
+  background: var(--bg-main);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+}
+
+.login-tab-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 9px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-tab-btn.active {
+  background: var(--bg-card);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(194, 125, 14, 0.12);
+  border: 1px solid var(--border);
+}
+
+/* Error Message */
+.login-error-msg {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #991b1b;
+  margin-bottom: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-welcome {
+  margin-bottom: 4px;
+}
+
+.login-form-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e1b15;
+  margin: 0 0 4px;
+}
+
+.login-form-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Fields */
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.login-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.login-input {
+  width: 100%;
+  padding: 11px 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-main);
+  background: var(--bg-main);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(194, 125, 14, 0.1);
+  background: #fff;
+}
+
+.login-input::placeholder {
+  color: #b8aa96;
+}
+
+.login-eye-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.login-eye-btn:hover {
+  color: var(--primary);
+}
+
+/* Remember Me */
+.login-remember-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+.login-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.login-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Submit Button */
+.login-submit-btn {
+  width: 100%;
+  padding: 13px 24px;
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(194, 125, 14, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(194, 125, 14, 0.4);
+}
+
+.login-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.login-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: loginSpin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes loginSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Divider */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Google Button */
+.login-google-btn {
+  width: 100%;
+  padding: 11px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.login-google-btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-bg);
+  color: var(--primary-hover);
+}
+
+/* Switch Text */
+.login-switch-text {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.login-switch-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+
+.login-switch-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Logout Button in Navbar */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  border-color: #ef4444;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+/* User badge in Navbar */
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--primary-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--primary-hover);
+  font-weight: 500;
+}
+
+.user-badge-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left-panel {
+    width: 100%;
+    padding: 32px 24px;
+    min-height: auto;
+  }
+
+  .login-tagline-title {
+    font-size: 24px;
+  }
+
+  .login-features {
+    display: none;
+  }
+
+  .login-right-panel {
+    padding: 24px 16px;
+  }
+
+  .login-form-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+}
+
+/* ============================================
+   MANUAL PROFILE FORM & EDIT MODE
+   ============================================ */
+.sidebar-tab-btn:hover {
+  color: var(--primary-hover) !important;
+}
+
+.sidebar-tab-btn.active {
+  color: var(--primary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.glass-card form input,
+.glass-card form select,
+.glass-card form textarea,
+.student-profile form input,
+.student-profile form select,
+.student-profile form textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-card form input:focus,
+.glass-card form select:focus,
+.glass-card form textarea:focus,
+.student-profile form input:focus,
+.student-profile form select:focus,
+.student-profile form textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1) !important;
+  background-color: #fff !important;
+}
+
+/* ============================================
+   INDEPENDENT SCROLLING FOR DESKTOP (> 1024px)
+   ============================================ */
+@media (min-width: 1025px) {
+  .app-container {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* header ไม่ให้ถูก shrink */
+  .app-header {
+    flex-shrink: 0;
+  }
+
+  .main-content {
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .sidebar {
+    position: static !important;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .results-section {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .chat-container {
+    height: 100%;
+  }
+
+  /* footer อยู่นอก scroll area เสมอ */
+  .app-footer {
+    flex-shrink: 0;
+    overflow: visible;
+  }
+}
