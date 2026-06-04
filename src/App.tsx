@@ -71,6 +71,7 @@ const mockTranscripts = [
 interface UserSession {
   name: string;
   email: string;
+  picture?: string;
 }
 
 function App() {
@@ -570,8 +571,16 @@ function App() {
           {/* User Badge + Logout */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div className="user-badge">
-              <div className="user-badge-avatar">
-                {currentUser.name.charAt(0).toUpperCase()}
+              <div className="user-badge-avatar" style={{ overflow: 'hidden', padding: 0 }}>
+                {currentUser.picture ? (
+                  <img 
+                    src={currentUser.picture} 
+                    alt={currentUser.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                ) : (
+                  currentUser.name.charAt(0).toUpperCase()
+                )}
               </div>
               <span style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentUser.name}

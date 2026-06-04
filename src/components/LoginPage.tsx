@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, GraduationCap, Sparkles, BookOpen, Award } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, GraduationCap, Sparkles, BookOpen, Award, X } from 'lucide-react';
 
 interface LoginPageProps {
-  onLogin: (user: { name: string; email: string }) => void;
+  onLogin: (user: { name: string; email: string; picture?: string }) => void;
 }
 
 export default function LoginPage({ onLogin }: LoginPageProps) {
@@ -12,6 +12,79 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Google Sign-In state
+  const [showGoogleSetup, setShowGoogleSetup] = useState(false);
+  const [googleClientId, setGoogleClientId] = useState(() => {
+    return (import.meta as any).env.VITE_GOOGLE_CLIENT_ID || localStorage.getItem('google_client_id') || '';
+  });
+  const [tempClientId, setTempClientId] = useState(googleClientId);
+
+  const handleGoogleLogin = (overrideClientId?: string) => {
+    setError('');
+    const activeClientId = overrideClientId || googleClientId;
+    
+    if (!activeClientId) {
+      setShowGoogleSetup(true);
+      return;
+    }
+
+    if (!(window as any).google?.accounts?.oauth2) {
+      setError('ระบบ Google Sign-in ยังไม่พร้อมใช้งาน กรุณารอ 2-3 วินาที หรือรีเฟรชหน้าเว็บ');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const client = (window as any).google.accounts.oauth2.initTokenClient({
+        client_id: activeClientId,
+        scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+        callback: (tokenResponse: any) => {
+          if (tokenResponse && tokenResponse.access_token) {
+            fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: {
+                Authorization: `Bearer ${tokenResponse.access_token}`
+              }
+            })
+            .then(res => {
+              if (!res.ok) throw new Error('ไม่สามารถดึงข้อมูลผู้ใช้จาก Google');
+              return res.json();
+            })
+            .then(userInfo => {
+              const userData = {
+                name: userInfo.name || userInfo.given_name || 'ผู้ใช้ Google',
+                email: userInfo.email,
+                picture: userInfo.picture
+              };
+              sessionStorage.setItem('uni_guide_session', JSON.stringify(userData));
+              onLogin(userData);
+              setIsLoading(false);
+            })
+            .catch(err => {
+              console.error(err);
+              setError('ดึงข้อมูลโปรไฟล์จาก Google ล้มเหลว: ' + err.message);
+              setIsLoading(false);
+            });
+          } else {
+            setError('การเข้าสู่ระบบล้มเหลว หรือถูกยกเลิก');
+            setIsLoading(false);
+          }
+        },
+        error_callback: (err: any) => {
+          console.error(err);
+          setError('เกิดข้อผิดพลาดในการเชื่อมต่อกับ Google');
+          setIsLoading(false);
+        }
+      });
+
+      client.requestAccessToken();
+    } catch (err: any) {
+      console.error(err);
+      setError('เกิดข้อผิดพลาดในการเริ่มระบบ Google Sign-in: ' + err.message);
+      setIsLoading(false);
+    }
+  };
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState('');
@@ -287,13 +360,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <button
                 type="button"
                 className="login-google-btn"
-                onClick={() => {
-                  // จำลอง Google login
-                  const mockGoogleUser = { name: 'ผู้ใช้ Google', email: 'user@gmail.com' };
-                  sessionStorage.setItem('uni_guide_session', JSON.stringify(mockGoogleUser));
-                  onLogin(mockGoogleUser);
-                }}
+                onClick={() => handleGoogleLogin()}
                 id="login-google-btn"
+                disabled={isLoading}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -424,6 +493,93 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           )}
         </div>
       </div>
+
+      {showGoogleSetup && (
+        <div className="modal-overlay" style={{ display: 'flex', zIndex: 1000 }}>
+          <div className="modal-content" style={{ maxWidth: '500px', padding: '0px', overflow: 'hidden' }}>
+            <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px' }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#1e1b15', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={20} color="#d97706" />
+                ตั้งค่า Google Client ID 🔑
+              </h2>
+              <button 
+                type="button"
+                className="modal-close-btn" 
+                onClick={() => setShowGoogleSetup(false)}
+                style={{ position: 'static' }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <div className="modal-body" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ backgroundColor: 'rgba(217, 119, 6, 0.05)', border: '1px solid rgba(217, 119, 6, 0.15)', borderRadius: '12px', padding: '16px', fontSize: '13px', color: '#1e1b15', lineHeight: '1.6' }}>
+                <strong>ขั้นตอนการรับ Client ID:</strong>
+                <ol style={{ margin: '8px 0 0 16px', padding: 0 }}>
+                  <li>ไปที่ <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer" style={{ color: '#d97706', textDecoration: 'underline', fontWeight: 500 }}>Google Cloud Console</a></li>
+                  <li>สร้างโปรเจกต์ และสร้าง <strong>OAuth client ID</strong> (ประเภท Web Application)</li>
+                  <li>ตั้งค่า <strong>Authorized JavaScript origins</strong> เป็น:
+                    <code style={{ display: 'block', backgroundColor: 'var(--bg-main)', padding: '4px 8px', borderRadius: '6px', margin: '4px 0', border: '1px solid var(--border)', fontSize: '12px', fontFamily: 'monospace', color: '#b45309' }}>
+                      {window.location.origin}
+                    </code>
+                  </li>
+                  <li>คัดลอก Client ID ที่ได้มาวางในช่องด้านล่าง</li>
+                </ol>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label className="login-label">Google Client ID</label>
+                <input
+                  type="text"
+                  className="login-input"
+                  style={{ padding: '10px 14px' }}
+                  placeholder="เช่น your-client-id.apps.googleusercontent.com"
+                  value={tempClientId}
+                  onChange={(e) => setTempClientId(e.target.value)}
+                />
+              </div>
+
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: 0, lineHeight: '1.4' }}>
+                * ระบบจะบันทึกรหัสไว้ในบราวเซอร์ (Local Storage) เพื่อให้คุณทดสอบใช้งานได้ทันที หรือสามารถนำไปใส่ถาวรในตัวแปร <code>VITE_GOOGLE_CLIENT_ID</code> ในไฟล์ <code>.env</code> ได้ครับ
+              </p>
+
+              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+                <button
+                  type="button"
+                  className="login-submit-btn"
+                  style={{ flex: 1, margin: 0, padding: '10px 16px', fontSize: '14px' }}
+                  onClick={() => {
+                    if (tempClientId.trim()) {
+                      const trimmedId = tempClientId.trim();
+                      localStorage.setItem('google_client_id', trimmedId);
+                      setGoogleClientId(trimmedId);
+                      setShowGoogleSetup(false);
+                      handleGoogleLogin(trimmedId);
+                    } else {
+                      alert('กรุณากรอก Client ID');
+                    }
+                  }}
+                >
+                  บันทึกและล็อกอิน
+                </button>
+                
+                <button
+                  type="button"
+                  className="login-google-btn"
+                  style={{ flex: 1, margin: 0, padding: '10px 16px', fontSize: '14px', border: '1px solid var(--border)' }}
+                  onClick={() => {
+                    setShowGoogleSetup(false);
+                    const mockGoogleUser = { name: 'ผู้ใช้ Google (จำลอง)', email: 'mock.google@gmail.com' };
+                    sessionStorage.setItem('uni_guide_session', JSON.stringify(mockGoogleUser));
+                    onLogin(mockGoogleUser);
+                  }}
+                >
+                  ข้ามเพื่อจำลอง (Mock)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
