@@ -1077,10 +1077,25 @@ function App() {
                           <div>
                             <div className="uni-badge-row">
                               <span
-                                className="uni-logo-icon"
-                                style={{ backgroundColor: prog.university.logoColor }}
+                              className="uni-logo-icon"
+                                style={{ backgroundColor: prog.university.logoUrl ? '#ffffff' : prog.university.logoColor, border: prog.university.logoUrl ? '1px solid #e2e8f0' : 'none' }}
                               >
-                                {prog.university.abbreviation.substring(0, 3)}
+                                {prog.university.logoUrl ? (
+                                  <img
+                                    src={prog.university.logoUrl}
+                                    alt={prog.university.abbreviation}
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '0px' }}
+                                    onError={(e) => {
+                                      const img = e.currentTarget;
+                                      img.style.display = 'none';
+                                      img.parentElement!.style.backgroundColor = prog.university.logoColor;
+                                      img.parentElement!.style.border = 'none';
+                                      img.parentElement!.textContent = prog.university.abbreviation.substring(0, 4);
+                                    }}
+                                  />
+                                ) : (
+                                  prog.university.abbreviation.substring(0, 4)
+                                )}
                               </span>
                               <span className="uni-name-text">
                                 {prog.university.name} • {prog.university.location}
@@ -1201,9 +1216,24 @@ function App() {
               <div className="uni-badge-row">
                 <span
                   className="uni-logo-icon"
-                  style={{ backgroundColor: selectedUniDetail.logoColor, width: '28px', height: '28px', fontSize: '11px' }}
+                  style={{ backgroundColor: selectedUniDetail.logoUrl ? '#ffffff' : selectedUniDetail.logoColor, width: '48px', height: '48px', fontSize: '12px', border: selectedUniDetail.logoUrl ? '1px solid #e2e8f0' : 'none' }}
                 >
-                  {selectedUniDetail.abbreviation}
+                  {selectedUniDetail.logoUrl ? (
+                    <img
+                      src={selectedUniDetail.logoUrl}
+                      alt={selectedUniDetail.abbreviation}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '0px' }}
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        img.style.display = 'none';
+                        img.parentElement!.style.backgroundColor = selectedUniDetail.logoColor;
+                        img.parentElement!.style.border = 'none';
+                        img.parentElement!.textContent = selectedUniDetail.abbreviation;
+                      }}
+                    />
+                  ) : (
+                    selectedUniDetail.abbreviation
+                  )}
                 </span>
                 <span className="uni-name-text" style={{ fontSize: '15px', color: 'var(--primary-hover)', fontWeight: 600 }}>
                   {selectedUniDetail.name}

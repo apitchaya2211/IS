@@ -278,15 +278,18 @@
 }
 
 .uni-logo-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 10px;
   font-weight: 800;
   color: white;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: transparent;
 }
 
 .uni-name-text {

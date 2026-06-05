@@ -18,6 +18,7 @@ export interface University {
   englishName: string;
   abbreviation: string;
   logoColor: string; // สำหรับวาด UI Icon
+  logoUrl?: string;  // URL ตรามหาวิทยาลัย
   location: string;
   description: string;
   website: string;
@@ -32,6 +33,7 @@ export const universitiesData: University[] = [
     englishName: "Chulalongkorn University",
     abbreviation: "CHULA",
     logoColor: "#E05A88", // สีชมพูจุฬา
+    logoUrl: "/logos/chula.svg",
     location: "กรุงเทพมหานคร",
     description: "มหาวิทยาลัยแห่งแรกของประเทศไทย โดดเด่นด้านวิชาการ วิจัย และเครือข่ายศิษย์เก่าที่แข็งแกร่งในทุกวงการ",
     website: "https://www.chula.ac.th",
@@ -122,6 +124,7 @@ export const universitiesData: University[] = [
     englishName: "Mahidol University",
     abbreviation: "MU",
     logoColor: "#003057", // สีน้ำเงิน-ทองมหิดล
+    logoUrl: "/logos/mahidol.png",
     location: "นครปฐม/กรุงเทพมหานคร",
     description: "สถาบันการศึกษาชั้นนำระดับประเทศ โดดเด่นเป็นอันดับหนึ่งด้านการแพทย์ สาธารณสุข วิทยาศาสตร์ และดนตรี",
     website: "https://mahidol.ac.th",
@@ -210,6 +213,7 @@ export const universitiesData: University[] = [
     englishName: "King Mongkut's University of Technology Thonburi",
     abbreviation: "KMUTT",
     logoColor: "#F37021", // สีส้มบางมด
+    logoUrl: "/logos/kmutt.png",
     location: "กรุงเทพมหานคร",
     description: "มหาวิทยาลัยเทคโนโลยีชั้นนำ โดดเด่นด้านวิศวกรรมศาสตร์ เทคโนโลยี พลังงาน และการออกแบบนวัตกรรม",
     website: "https://www.kmutt.ac.th",
@@ -285,6 +289,7 @@ export const universitiesData: University[] = [
     englishName: "Chiang Mai University",
     abbreviation: "CMU",
     logoColor: "#5B2E87", // สีม่วง มช.
+    logoUrl: "/logos/cmu.png",
     location: "เชียงใหม่",
     description: "มหาวิทยาลัยหลักแห่งภาคเหนือ โดดเด่นด้านวิทยาศาสตร์สุขภาพ ศิลปวัฒนธรรม วิทยาศาสตร์สิ่งแวดล้อม และวิศวกรรม",
     website: "https://www.cmu.ac.th",
@@ -373,6 +378,7 @@ export const universitiesData: University[] = [
     englishName: "Thammasat University",
     abbreviation: "TU",
     logoColor: "#C9232B", // สีเหลือง-แดงธรรมศาสตร์
+    logoUrl: "/logos/tu.png",
     location: "ปทุมธานี/กรุงเทพมหานคร",
     description: "สถาบันชั้นนำด้านกฎหมาย รัฐศาสตร์ การเมือง เศรษฐศาสตร์ และศิลปศาสตร์ มุ่งเน้นการรับใช้สังคมและประชาธิปไตย",
     website: "https://tu.ac.th",
@@ -461,6 +467,7 @@ export const universitiesData: University[] = [
     englishName: "Kasetsart University",
     abbreviation: "KU",
     logoColor: "#006C35", // สีเขียวเกษตร
+    logoUrl: "/logos/ku.png",
     location: "กรุงเทพมหานคร (บางเขน)",
     description: "โดดเด่นเป็นเลิศด้านการเกษตร วนศาสตร์ อุตสาหกรรมเกษตร วิศวกรรมศาสตร์ และวิทยาศาสตร์ธรรมชาติ",
     website: "https://www.ku.ac.th",
@@ -549,6 +556,7 @@ export const universitiesData: University[] = [
     englishName: "Khon Kaen University",
     abbreviation: "KKU",
     logoColor: "#A85324", // สีดินเทศ (ส้มแดงกล่ำ)
+    logoUrl: "/logos/kku.png",
     location: "ขอนแก่น",
     description: "มหาวิทยาลัยที่ใหญ่ที่สุดในภาคตะวันออกเฉียงเหนือ มุ่งเน้นการพัฒนาชุมชน นวัตกรรมการเกษตร และการแพทย์ท้องถิ่น",
     website: "https://www.kku.ac.th",
@@ -612,6 +620,7 @@ export const universitiesData: University[] = [
     englishName: "Prince of Songkla University",
     abbreviation: "PSU",
     logoColor: "#0A3B75", // สีน้ำเงิน รูปร่างสมอ
+    logoUrl: "/logos/psu.png",
     location: "สงขลา (หาดใหญ่)",
     description: "มหาวิทยาลัยหลักแห่งภาคใต้ โดดเด่นด้านยางพารา วิศวกรรมศาสตร์ เทคโนโลยีทางทะเล และวิทยาศาสตร์การแพทย์",
     website: "https://www.psu.ac.th",
@@ -675,6 +684,7 @@ export const universitiesData: University[] = [
     englishName: "King Mongkut's Institute of Technology Ladkrabang",
     abbreviation: "KMITL",
     logoColor: "#E34E26", // สีส้มหมาด
+    logoUrl: "/logos/kmitl.svg",
     location: "กรุงเทพมหานคร",
     description: "สถาบันเทคโนโลยีชั้นนำระดับประเทศ โดดเด่นเป็นเลิศด้านวิศวกรรมศาสตร์ สถาปัตยกรรมศาสตร์ และเทคโนโลยีสารสนเทศ",
     website: "https://www.kmitl.ac.th",
@@ -738,6 +748,7 @@ export const universitiesData: University[] = [
     englishName: "King Mongkut's University of Technology North Bangkok",
     abbreviation: "KMUTNB",
     logoColor: "#C74D0E", // สีแสดแดง
+    logoUrl: "/logos/kmutnb.png",
     location: "กรุงเทพมหานคร",
     description: "สถาบันการศึกษาที่มีความเชี่ยวชาญระดับสูงด้านวิศวกรรมศาสตร์ วิศวกรรมเทคโนโลยีเชิงปฏิบัติการ และหุ่นยนต์อุตสาหกรรม",
     website: "https://www.kmutnb.ac.th",
@@ -801,6 +812,7 @@ export const universitiesData: University[] = [
     englishName: "Srinakharinwirot University",
     abbreviation: "SWU",
     logoColor: "#C91E3B", // สีเทา-แดง มศว
+    logoUrl: "/logos/swu.svg",
     location: "กรุงเทพมหานคร (ประสานมิตร) / นครนายก (องครักษ์)",
     description: "โดดเด่นด้านคณะครุศาสตร์/ศึกษาศาสตร์ (การผลิตครู) ศิลปกรรมศาสตร์ สื่อสารมวลชน การแสดง และวิทยาศาสตร์การแพทย์",
     website: "https://www.swu.ac.th",
@@ -877,6 +889,7 @@ export const universitiesData: University[] = [
     englishName: "Silpakorn University",
     abbreviation: "SU",
     logoColor: "#0093A8", // สีเขียวเวอร์ริเดียน (สีเขียวน้ำทะเล)
+    logoUrl: "/logos/silpakorn.png",
     location: "กรุงเทพมหานคร / นครปฐม",
     description: "สถาบันศิลปะและสถาปัตยกรรมชั้นนำที่เป็นเอกลักษณ์ โดดเด่นด้านทัศนศิลป์ ดุริยางคศิลป์ โบราณคดี และอักษรศาสตร์",
     website: "https://www.su.ac.th",
@@ -940,6 +953,7 @@ export const universitiesData: University[] = [
     englishName: "Suranaree University of Technology",
     abbreviation: "SUT",
     logoColor: "#C25E00", // สีแสดทอง
+    logoUrl: "/logos/sut.svg",
     location: "นครราชสีมา",
     description: "มหาวิทยาลัยแห่งความสามารถทางเทคโนโลยีและการวิจัย เน้นระบบการศึกษาสามภาคเรียน (Trimester) และสหกิจศึกษา 100%",
     website: "https://www.sut.ac.th",
@@ -991,6 +1005,7 @@ export const universitiesData: University[] = [
     englishName: "Mae Fah Luang University",
     abbreviation: "MFU",
     logoColor: "#A6192E", // สีแดงแดงเข้ม-ทอง
+    logoUrl: "/logos/mfu.png",
     location: "เชียงราย",
     description: "มหาวิทยาลัยที่สวยงามที่สุดในประเทศ โดดเด่นเรื่องการเรียนการสอนด้วยสื่อการสอนที่เป็นภาษาอังกฤษเกือบทั้งหมด และภาษาจีน",
     website: "https://www.mfu.ac.th",
@@ -1054,6 +1069,7 @@ export const universitiesData: University[] = [
     englishName: "Naresuan University",
     abbreviation: "NU",
     logoColor: "#C4820E", // สีทองนเรศวร
+    logoUrl: "/logos/naresuan.png",
     location: "พิษณุโลก",
     description: "ศูนย์กลางทางการศึกษาภาคเหนือตอนล่าง มีชื่อเสียงด้านวิทยาศาสตร์สุขภาพ เกษตรกรรม พลังงาน และการท่องเที่ยว",
     website: "https://www.nu.ac.th",
@@ -1105,6 +1121,7 @@ export const universitiesData: University[] = [
     englishName: "Walailak University",
     abbreviation: "WU",
     logoColor: "#E25822", // สีแสด-ม่วง
+    logoUrl: "/logos/walailak.svg",
     location: "นครศรีธรรมราช",
     description: "มหาวิทยาลัยวิจัยขนาดใหญ่ในภาคใต้ตอนบน โดดเด่นด้านการเรียนการสอนแบบ Active Learning ด้วยมาตรฐาน UKPSF ของอังกฤษ",
     website: "https://www.wu.ac.th",
@@ -1169,6 +1186,7 @@ export const universitiesData: University[] = [
     englishName: "Burapha University",
     abbreviation: "BUU",
     logoColor: "#00629B", // สีเทา-ทอง (แต่ออกน้ำเงินเด่น)
+    logoUrl: "/logos/burapha.png",
     location: "ชลบุรี (บางแสน)",
     description: "มหาวิทยาลัยชั้นนำบริเวณชายฝั่งภาคตะวันออก โดดเด่นด้านวิทยาศาสตร์ทางทะเล โลจิสติกส์ และการบริหารการท่องเที่ยวชายฝั่ง",
     website: "https://www.buu.ac.th",
@@ -1232,6 +1250,7 @@ export const universitiesData: University[] = [
     englishName: "Mahasarakham University",
     abbreviation: "MSU",
     logoColor: "#C98B00", // สีเหลืองโรยัล
+    logoUrl: "/logos/msu.png",
     location: "มหาสารคาม",
     description: "มหาวิทยาลัยชั้นนำในภาคอีสาน โดดเด่นเรื่องศิลปวัฒนธรรมท้องถิ่น เภสัชศาสตร์ วิศวกรรมระบบชีวภาพ และภูมิสารสนเทศ",
     website: "https://www.msu.ac.th",
@@ -1283,6 +1302,7 @@ export const universitiesData: University[] = [
     englishName: "Assumption University",
     abbreviation: "ABAC",
     logoColor: "#1B3B6F", // สีน้ำเงินกรมท่าเข้ม
+    logoUrl: "/logos/abac.png",
     location: "สมุทรปราการ (บางนา) / กรุงเทพมหานคร (หัวหมาก)",
     description: "มหาวิทยาลัยนานาชาติแห่งแรกของประเทศไทยที่มีหลักสูตรภาษาอังกฤษเต็มรูปแบบและมีความเชื่อมโยงทางวิชาการกับสถาบันการศึกษาทั่วโลก",
     website: "https://www.au.edu",
@@ -1334,6 +1354,7 @@ export const universitiesData: University[] = [
     englishName: "Bangkok University",
     abbreviation: "BU",
     logoColor: "#781848", // สีม่วงเข้ม/บานเย็น
+    logoUrl: "/logos/bu.png",
     location: "ปทุมธานี (รังสิต) / กรุงเทพมหานคร (กล้วยน้ำไท)",
     description: "มหาวิทยาลัยเอกชนยอดนิยมชั้นนำของประเทศ มีชื่อเสียงโดดเด่นเป็นพิเศษด้านนิเทศศาสตร์ ความคิดสร้างสรรค์ และการบริหารธุรกิจแนวใหม่",
     website: "https://www.bu.ac.th",
