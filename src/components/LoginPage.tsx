@@ -40,6 +40,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       const client = (window as any).google.accounts.oauth2.initTokenClient({
         client_id: activeClientId,
         scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+        prompt: rememberMe ? '' : 'select_account',
         callback: (tokenResponse: any) => {
           if (tokenResponse && tokenResponse.access_token) {
             fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
@@ -57,7 +58,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 email: userInfo.email,
                 picture: userInfo.picture
               };
-              sessionStorage.setItem('uni_guide_session', JSON.stringify(userData));
+              if (rememberMe) {
+                localStorage.setItem('uni_guide_session', JSON.stringify(userData));
+              } else {
+                sessionStorage.setItem('uni_guide_session', JSON.stringify(userData));
+              }
               onLogin(userData);
               setIsLoading(false);
             })
@@ -569,7 +574,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   onClick={() => {
                     setShowGoogleSetup(false);
                     const mockGoogleUser = { name: 'ผู้ใช้ Google (จำลอง)', email: 'mock.google@gmail.com' };
-                    sessionStorage.setItem('uni_guide_session', JSON.stringify(mockGoogleUser));
+                    if (rememberMe) {
+                      localStorage.setItem('uni_guide_session', JSON.stringify(mockGoogleUser));
+                    } else {
+                      sessionStorage.setItem('uni_guide_session', JSON.stringify(mockGoogleUser));
+                    }
                     onLogin(mockGoogleUser);
                   }}
                 >
