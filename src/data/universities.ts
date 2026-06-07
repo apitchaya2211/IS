@@ -289,7 +289,7 @@ export const universitiesData: University[] = [
     englishName: "Chiang Mai University",
     abbreviation: "CMU",
     logoColor: "#5B2E87", // สีม่วง มช.
-    logoUrl: "/logos/cmu.png",
+    logoUrl: "/logos/cmu.jpg",
     location: "เชียงใหม่",
     description: "มหาวิทยาลัยหลักแห่งภาคเหนือ โดดเด่นด้านวิทยาศาสตร์สุขภาพ ศิลปวัฒนธรรม วิทยาศาสตร์สิ่งแวดล้อม และวิศวกรรม",
     website: "https://www.cmu.ac.th",
@@ -467,7 +467,7 @@ export const universitiesData: University[] = [
     englishName: "Kasetsart University",
     abbreviation: "KU",
     logoColor: "#006C35", // สีเขียวเกษตร
-    logoUrl: "/logos/ku.png",
+    logoUrl: "/logos/ku.svg",
     location: "กรุงเทพมหานคร (บางเขน)",
     description: "โดดเด่นเป็นเลิศด้านการเกษตร วนศาสตร์ อุตสาหกรรมเกษตร วิศวกรรมศาสตร์ และวิทยาศาสตร์ธรรมชาติ",
     website: "https://www.ku.ac.th",
@@ -620,7 +620,7 @@ export const universitiesData: University[] = [
     englishName: "Prince of Songkla University",
     abbreviation: "PSU",
     logoColor: "#0A3B75", // สีน้ำเงิน รูปร่างสมอ
-    logoUrl: "/logos/psu.png",
+    logoUrl: "/logos/psu.svg",
     location: "สงขลา (หาดใหญ่)",
     description: "มหาวิทยาลัยหลักแห่งภาคใต้ โดดเด่นด้านยางพารา วิศวกรรมศาสตร์ เทคโนโลยีทางทะเล และวิทยาศาสตร์การแพทย์",
     website: "https://www.psu.ac.th",
